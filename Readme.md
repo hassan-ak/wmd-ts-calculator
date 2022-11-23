@@ -105,3 +105,37 @@ A CLI based calculator using typescript and published as an executable npm packa
   ```
 
 - If everything is right we will have a console output.
+
+### 4. Create Welcome Message
+
+- Create `startUp.ts` will the following content to display welcome message to the user
+
+  ```ts
+  import chalkAnimation from 'chalk-animation';
+  function welcomeMessage(): chalkAnimation.Animation {
+    console.clear();
+    const welcomeMessage: chalkAnimation.Animation = chalkAnimation.karaoke(
+      '\n********************************\n***Welcome to CLI Calculator ***\n********************************\n',
+      2
+    );
+    return welcomeMessage;
+  }
+  export { welcomeMessage };
+  ```
+
+- All the functions are called through `index.ts` so update it with the following content
+
+  ```ts
+  #!/usr/bin/env node
+  import chalkAnimation from 'chalk-animation';
+  import { welcomeMessage } from './startUp.js';
+  function runApp(): Promise<boolean> {
+    return new Promise((resolve) => {
+      resolve(true);
+    });
+  }
+  let appPromise: Promise<boolean> = runApp();
+  appPromise.then((): chalkAnimation.Animation => {
+    return welcomeMessage();
+  });
+  ```
