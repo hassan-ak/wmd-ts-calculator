@@ -23,11 +23,14 @@
     "chalk": "^5.1.2",
     "chalk-animation": "^2.0.3",
     "cli-table": "^0.3.11",
-    "inquirer": "^9.1.4"
+    "inquirer": "^9.1.4",
+    "nanospinner": "^1.1.0",
+    "prettier": "^2.7.1"
   },
   "devDependencies": {
     "@types/chalk-animation": "^1.6.1",
     "@types/cli-table": "^0.3.1",
-    "@types/inquirer": "^9.0.3"
+    "@types/inquirer": "^9.0.3",
+    "@types/prettier": "^2.7.1"
   }
 }

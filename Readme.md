@@ -61,6 +61,8 @@ A CLI based calculator using typescript and published as an executable npm packa
   npm install cli-table
   npm install chalk
   npm install chalk-animation
+  npm install nanospinner
+  npm install prettier
   ```
 
 - Install types for the installed dependancies for the development using following set of commands
@@ -69,6 +71,7 @@ A CLI based calculator using typescript and published as an executable npm packa
   npm install --save-dev @types/inquirer
   npm install --save-dev @types/cli-table
   npm install --save-dev @types/chalk-animation
+  npm install --save-dev @types/prettier
   ```
 
 - After installation `package.json` file will be updated and `package-lock.json` file along with `node_modules` folder will be created. We don't need git to track newly created files and folders so create a `.gitignore` file with the following content
@@ -77,3 +80,28 @@ A CLI based calculator using typescript and published as an executable npm packa
   node_modules
   package-lock.json
   ```
+
+### 3. Create Hello World
+
+- To check if everything is setup properly first create a hello world. All the typescript files should be created `./src` directory. Create a `index.ts` file with the following content
+
+  ```ts
+  console.log('Hello World!');
+  ```
+
+- To transpile our code to javascript we can use any of the following command, one thing to rember we need to use first command every time we make a change and the second one automatically create js files on every change. So we are going to use the latter one. All the js files will be stored in the `./dist` folder as we declared in our `tsconfig.json` file earlier.
+
+  ```cmd
+  tsc
+  tsc -w
+  ```
+
+- to run the js file we can use any of the following commands
+
+  ```cmd
+  node .\dist\index.js
+  node .
+  npm start
+  ```
+
+- If everything is right we will have a console output.
