@@ -338,56 +338,175 @@ A CLI based calculator using typescript and published as an executable npm packa
 
 - Create `calculatorUtilities.ts` to define a function which ask user for a number and store it to the data class
 
-```ts
-import inquirer from 'inquirer';
-import chalk from 'chalk';
-import { data } from './appData.js';
-let askforNumberPromise: (firstEntry: boolean) => Promise<void | boolean> = (
-  firstEntry: boolean
-): Promise<void | boolean> => {
-  return new Promise((resolve) => {
-    async function askForNumber(firstEntry: boolean): Promise<void | boolean> {
-      let userInput = await inquirer.prompt([
-        {
-          name: 'aNum',
-          type: 'number',
-          message: `Enter ${firstEntry ? '1st' : '2nd'} Number : `,
-        },
-      ]);
-      if (isNaN(userInput.aNum)) {
-        console.log(chalk.red('Entered value is not a number '));
-        askForNumber(firstEntry);
-      } else {
-        if (firstEntry) {
-          data.addResults(userInput.aNum);
-          data.addStatements(userInput.aNum);
+  ```ts
+  import inquirer from 'inquirer';
+  import chalk from 'chalk';
+  import { data } from './appData.js';
+  let askforNumberPromise: (firstEntry: boolean) => Promise<void | boolean> = (
+    firstEntry: boolean
+  ): Promise<void | boolean> => {
+    return new Promise((resolve) => {
+      async function askForNumber(
+        firstEntry: boolean
+      ): Promise<void | boolean> {
+        let userInput = await inquirer.prompt([
+          {
+            name: 'aNum',
+            type: 'number',
+            message: `Enter ${firstEntry ? '1st' : '2nd'} Number : `,
+          },
+        ]);
+        if (isNaN(userInput.aNum)) {
+          console.log(chalk.red('Entered value is not a number '));
+          askForNumber(firstEntry);
         } else {
-          data.setTemp(userInput.aNum);
+          if (firstEntry) {
+            data.addResults(userInput.aNum);
+            data.addStatements(userInput.aNum);
+          } else {
+            data.setTemp(userInput.aNum);
+          }
+          resolve(true);
         }
-        resolve(true);
       }
-    }
-    askForNumber(firstEntry);
-  });
-};
-export { askforNumberPromise };
-```
+      askForNumber(firstEntry);
+    });
+  };
+  export { askforNumberPromise };
+  ```
 
 - update `calculator.ts` to include above function in the app
 
-```ts
-import chalk from 'chalk';
-import { data } from './appData.js';
-import { askforNumberPromise } from './calculatorUtilities.js';
-async function calculator(): Promise<void> {
-  let iter: boolean = true;
-  while (iter) {
-    if (data.getResults().length === 0) {
-      console.clear();
-      console.log(chalk.greenBright('CLI Calculator\n'));
-      await askforNumberPromise(true);
+  ```ts
+  import chalk from 'chalk';
+  import { data } from './appData.js';
+  import { askforNumberPromise } from './calculatorUtilities.js';
+  async function calculator(): Promise<void> {
+    let iter: boolean = true;
+    while (iter) {
+      if (data.getResults().length === 0) {
+        console.clear();
+        console.log(chalk.greenBright('CLI Calculator\n'));
+        await askforNumberPromise(true);
+      }
     }
   }
-}
-export { calculator };
-```
+  export { calculator };
+  ```
+
+### 11. Create Operations
+
+- Create `operations.ts` to define all the operations the calculator is capabale of performing
+
+  ```ts
+  import { data } from './appData.js';
+  function addStatementBinary(p1: string, p2: string, p3: string): void {
+    let statement: string = `(${p1}) ${p2} ${p3}`;
+    data.addStatements(statement);
+  }
+  function addStatementBinaryR(p1: string, p2: string, p3: string) {
+    if (p2 === '') {
+      let stat: string = `${p3} (${p1})`;
+      data.addStatements(stat);
+    } else {
+      let stat: string = `${p3} ${p2} (${p1})`;
+      data.addStatements(stat);
+    }
+  }
+  function addition(): number {
+    let temp1: number = data.getResults()[0];
+    let temp2: number = data.getTemp();
+    addStatementBinary(data.getStatements()[0], '+', temp2.toString());
+    let operationResult: number = temp1 + temp2;
+    return operationResult;
+  }
+  function subtraction(): number {
+    let temp1: number = data.getResults()[0];
+    let temp2: number = data.getTemp();
+    addStatementBinary(data.getStatements()[0], '-', temp2.toString());
+    let operationResult: number = temp1 - temp2;
+    return operationResult;
+  }
+  function multiplication(): number {
+    let temp1: number = data.getResults()[0];
+    let temp2: number = data.getTemp();
+    addStatementBinary(data.getStatements()[0], '*', temp2.toString());
+    let operationResult: number = temp1 * temp2;
+    return operationResult;
+  }
+  function divison(): number {
+    let temp1: number = data.getResults()[0];
+    let temp2: number = data.getTemp();
+    addStatementBinary(data.getStatements()[0], '/', temp2.toString());
+    let operationResult: number = temp1 / temp2;
+    return operationResult;
+  }
+  function power(): number {
+    let temp1: number = data.getResults()[0];
+    let temp2: number = data.getTemp();
+    addStatementBinary(data.getStatements()[0], '^', temp2.toString());
+    let operationResult: number = temp1 ** temp2;
+    return operationResult;
+  }
+  function percent(): number {
+    let temp1: number = data.getResults()[0];
+    let temp2: number = data.getTemp();
+    addStatementBinaryR(data.getStatements()[0], '% of', temp2.toString());
+    let operationResult: number = temp1 * (temp2 / 100);
+    return operationResult;
+  }
+  function square(): number {
+    let temp1: number = data.getResults()[0];
+    addStatementBinary(data.getStatements()[0], '**', '2');
+    let operationResult: number = temp1 ** 2;
+    return operationResult;
+  }
+  function squareRoot(): number {
+    let temp1: number = data.getResults()[0];
+    addStatementBinaryR(data.getStatements()[0], '', 'sqrt');
+    let operationResult: number = Math.sqrt(temp1);
+    return operationResult;
+  }
+  function reciprocal(): number {
+    let temp1: number = data.getResults()[0];
+    addStatementBinaryR(data.getStatements()[0], '/', '1');
+    let operationResult: number = 1 / temp1;
+    return operationResult;
+  }
+  function negate(): number {
+    let temp1: number = data.getResults()[0];
+    addStatementBinaryR(data.getStatements()[0], '', 'negate');
+    let operationResult: number = -1 * temp1;
+    return operationResult;
+  }
+  function revert(): string {
+    data.removeResults();
+    data.removeStatements();
+    return 'r';
+  }
+  function clear(): string {
+    data.reset();
+    console.clear();
+    return 'c';
+  }
+  function quitCalculator(): string {
+    data.reset();
+    console.clear();
+    return 'q';
+  }
+  export {
+    addition,
+    clear,
+    quitCalculator,
+    subtraction,
+    multiplication,
+    divison,
+    power,
+    percent,
+    square,
+    squareRoot,
+    reciprocal,
+    negate,
+    revert,
+  };
+  ```
