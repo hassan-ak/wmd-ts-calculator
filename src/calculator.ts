@@ -4,7 +4,9 @@ import { data } from './appData.js';
 import {
   askforNumberPromise,
   askforOperationPromise,
+  performOperationPromise,
 } from './calculatorUtilities.js';
+import { quitApp } from './startUp.js';
 
 /**************************************************************************/
 // Actual calculator function
@@ -31,6 +33,14 @@ async function calculator(): Promise<void> {
       operation === '( ^ )     power'
     ) {
       await askforNumberPromise(false);
+    }
+    let operationResult: number | string = await performOperationPromise(
+      operation
+    );
+    if (operationResult === 'q') {
+      iter = false;
+      quitApp();
+      break;
     }
   }
 }

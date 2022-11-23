@@ -10,7 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 // Calculator
 import chalk from 'chalk';
 import { data } from './appData.js';
-import { askforNumberPromise, askforOperationPromise, } from './calculatorUtilities.js';
+import { askforNumberPromise, askforOperationPromise, performOperationPromise, } from './calculatorUtilities.js';
+import { quitApp } from './startUp.js';
 /**************************************************************************/
 // Actual calculator function
 // iterates until stopped
@@ -35,6 +36,12 @@ function calculator() {
                 operation === '( % )     percentage' ||
                 operation === '( ^ )     power') {
                 yield askforNumberPromise(false);
+            }
+            let operationResult = yield performOperationPromise(operation);
+            if (operationResult === 'q') {
+                iter = false;
+                quitApp();
+                break;
             }
         }
     });

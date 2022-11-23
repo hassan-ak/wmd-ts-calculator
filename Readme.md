@@ -564,3 +564,106 @@ A CLI based calculator using typescript and published as an executable npm packa
     await askforNumberPromise(false);
   }
   ```
+
+### 12. Perform operation based on user Input
+
+- update `calculatorUtilities.ts` to create a function which performs the operation asked by user
+
+  ```ts
+  import {
+    addition,
+    clear,
+    divison,
+    multiplication,
+    negate,
+    percent,
+    power,
+    quitCalculator,
+    reciprocal,
+    revert,
+    square,
+    squareRoot,
+    subtraction,
+  } from './operations.js';
+  let performOperationPromise = (
+    operation: string
+  ): Promise<number | string> => {
+    return new Promise((resolve) => {
+      function performOperation(operation: string): number | string {
+        let result: number | string;
+        switch (operation) {
+          case '( + )     addition':
+            result = addition();
+            data.addResults(result);
+            break;
+          case '( - )     subtraction':
+            result = subtraction();
+            data.addResults(result);
+            break;
+          case '( * )     multiplication':
+            result = multiplication();
+            data.addResults(result);
+            break;
+          case '( / )     division':
+            result = divison();
+            data.addResults(result);
+            break;
+          case '( ^ )     power':
+            result = power();
+            data.addResults(result);
+            break;
+          case '( % )     percentage':
+            result = percent();
+            data.addResults(result);
+            break;
+          case '( ** )    square':
+            result = square();
+            data.addResults(result);
+            break;
+          case '( 1/x )   reciprocal':
+            result = reciprocal();
+            data.addResults(result);
+            break;
+          case '( +/- )   negation':
+            result = negate();
+            data.addResults(result);
+            break;
+          case '( sqrt )  square root':
+            result = squareRoot();
+            data.addResults(result);
+            break;
+          case '( < )     undo last operation':
+            result = revert();
+            break;
+          case '( q )     quit calculator':
+            result = quitCalculator();
+            break;
+          case '( c )     clear and startOver':
+            result = clear();
+            break;
+          default:
+            result = 0;
+            break;
+        }
+        return result;
+      }
+      resolve(performOperation(operation));
+    });
+  };
+  export { performOperationPromise };
+  ```
+
+- update `calculator.ts` to call the operations function and quit app based on operation
+
+  ```ts
+  import { performOperationPromise } from './calculatorUtilities.js';
+  import { quitApp } from './startUp.js';
+  let operationResult: number | string = await performOperationPromise(
+    operation
+  );
+  if (operationResult === 'q') {
+    iter = false;
+    quitApp();
+    break;
+  }
+  ```

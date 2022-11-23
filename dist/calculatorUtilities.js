@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { data } from './appData.js';
+import { addition, clear, divison, multiplication, negate, percent, power, quitCalculator, reciprocal, revert, square, squareRoot, subtraction, } from './operations.js';
 /**************************************************************************/
 // Fnction should ask for a number from user
 // If it is the first operation ask for 1st number
@@ -91,4 +92,71 @@ let askforOperationPromise = () => {
     });
 };
 /**************************************************************************/
-export { askforNumberPromise, askforOperationPromise };
+// Perform Operation based on user selection
+// call a function based on operation
+// add result to data.results and return the result
+let performOperationPromise = (operation) => {
+    return new Promise((resolve) => {
+        function performOperation(operation) {
+            let result;
+            switch (operation) {
+                case '( + )     addition':
+                    result = addition();
+                    data.addResults(result);
+                    break;
+                case '( - )     subtraction':
+                    result = subtraction();
+                    data.addResults(result);
+                    break;
+                case '( * )     multiplication':
+                    result = multiplication();
+                    data.addResults(result);
+                    break;
+                case '( / )     division':
+                    result = divison();
+                    data.addResults(result);
+                    break;
+                case '( ^ )     power':
+                    result = power();
+                    data.addResults(result);
+                    break;
+                case '( % )     percentage':
+                    result = percent();
+                    data.addResults(result);
+                    break;
+                case '( ** )    square':
+                    result = square();
+                    data.addResults(result);
+                    break;
+                case '( 1/x )   reciprocal':
+                    result = reciprocal();
+                    data.addResults(result);
+                    break;
+                case '( +/- )   negation':
+                    result = negate();
+                    data.addResults(result);
+                    break;
+                case '( sqrt )  square root':
+                    result = squareRoot();
+                    data.addResults(result);
+                    break;
+                case '( < )     undo last operation':
+                    result = revert();
+                    break;
+                case '( q )     quit calculator':
+                    result = quitCalculator();
+                    break;
+                case '( c )     clear and startOver':
+                    result = clear();
+                    break;
+                default:
+                    result = 0;
+                    break;
+            }
+            return result;
+        }
+        resolve(performOperation(operation));
+    });
+};
+/**************************************************************************/
+export { askforNumberPromise, askforOperationPromise, performOperationPromise };
