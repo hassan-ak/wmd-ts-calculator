@@ -3,6 +3,7 @@ import chalkAnimation from 'chalk-animation';
 import { operatorsTable } from './operatorsTable.js';
 import inquirer from 'inquirer';
 import { createSpinner } from 'nanospinner';
+import chalk from 'chalk';
 
 /**************************************************************************/
 // Display Welcome message
@@ -59,8 +60,7 @@ function askUserForStart(): void {
             // calculator();
           }, 1000);
         } else {
-          console.log('App Closed');
-          // quitApp();
+          quitApp();
         }
       });
   }
@@ -69,5 +69,13 @@ function askUserForStart(): void {
   }, 2000);
 }
 
+// Quit App after displaying a message and clear console
+function quitApp(): void {
+  console.log(chalk.bgRed('\nClosing CLI Calculator, please wait.'));
+  setTimeout((): void => {
+    console.clear();
+  }, 1500);
+}
+
 /**************************************************************************/
-export { welcomeMessage, displayTable, askUserForStart };
+export { welcomeMessage, displayTable, askUserForStart, quitApp };

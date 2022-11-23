@@ -250,3 +250,18 @@ A CLI based calculator using typescript and published as an executable npm packa
     }, 1000);
   });
   ```
+
+### 7. Add function to quit app
+
+- update `starUp.ts` to define a function which quits the app when called. Dont forget to un-comment function call from the last step
+
+  ```ts
+  import chalk from 'chalk';
+  function quitApp(): void {
+    console.log(chalk.bgRed('\nClosing CLI Calculator, please wait.'));
+    setTimeout((): void => {
+      console.clear();
+    }, 1500);
+  }
+  export { quitApp };
+  ```
