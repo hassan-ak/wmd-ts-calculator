@@ -1,6 +1,6 @@
 {
   "name": "wmd-ts-calculator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A CLI based calculator using typescript and published as an executable npm package.",
   "main": "./dist/index.js",
   "type": "module",
