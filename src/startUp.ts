@@ -1,6 +1,8 @@
 // Functions to run at starup
 import chalkAnimation from 'chalk-animation';
 import { operatorsTable } from './operatorsTable.js';
+import inquirer from 'inquirer';
+import { createSpinner } from 'nanospinner';
 
 /**************************************************************************/
 // Display Welcome message
@@ -31,4 +33,41 @@ function displayTable(value: chalkAnimation.Animation): void {
 }
 
 /**************************************************************************/
-export { welcomeMessage, displayTable };
+// Ask user for continuing or quiting app
+// based on user input start or quit app
+// before starting calculator display a spinner
+function askUserForStart(): void {
+  enum Commands {
+    Use = 'Use Calculator',
+    Quit = 'Quit App',
+  }
+  // function to take input from user
+  async function promptUser(): Promise<void> {
+    await inquirer
+      .prompt({
+        type: 'list',
+        name: 'command',
+        message: 'Do you want to use the Calculator ? ',
+        choices: Object.values(Commands),
+      })
+      .then((answers): void => {
+        if (answers['command'] === Commands.Use) {
+          const spinner = createSpinner('starting up').start();
+          setTimeout(() => {
+            spinner.stop();
+            console.log('Calculator');
+            // calculator();
+          }, 1000);
+        } else {
+          console.log('App Closed');
+          // quitApp();
+        }
+      });
+  }
+  setTimeout(() => {
+    promptUser();
+  }, 2000);
+}
+
+/**************************************************************************/
+export { welcomeMessage, displayTable, askUserForStart };

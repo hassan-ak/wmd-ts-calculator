@@ -192,3 +192,61 @@ A CLI based calculator using typescript and published as an executable npm packa
     displayTable(value);
   });
   ```
+
+### 6. Ask user to start or quit
+
+- Update `startUp.ts` to define a function which asks the user to open calculator or quit the app.
+
+  ```ts
+  import inquirer from 'inquirer';
+  import { createSpinner } from 'nanospinner';
+  function askUserForStart(): void {
+    enum Commands {
+      Use = 'Use Calculator',
+      Quit = 'Quit App',
+    }
+    async function promptUser(): Promise<void> {
+      await inquirer
+        .prompt({
+          type: 'list',
+          name: 'command',
+          message: 'Do you want to use the Calculator ? ',
+          choices: Object.values(Commands),
+        })
+        .then((answers): void => {
+          if (answers['command'] === Commands.Use) {
+            const spinner = createSpinner('starting up').start();
+            setTimeout(() => {
+              spinner.stop();
+              console.log('Calculator');
+              // calculator();
+            }, 1000);
+          } else {
+            console.log('App Closed');
+            // quitApp();
+          }
+        });
+    }
+    setTimeout(() => {
+      promptUser();
+    }, 2000);
+  }
+  export { askUserForStart };
+  ```
+
+- update `index.ts` to call inquirer function
+
+  ```ts
+  import chalk from 'chalk';
+  import { askUserForStart } from './startUp.js';
+  .then((): void => {
+    askUserForStart();
+  }).catch((): void => {
+    console.log(
+      chalk.magenta('\nThere is some Internal Error.\nPlease Try Again Later')
+    );
+    setTimeout((): void => {
+      console.clear();
+    }, 1000);
+  });
+  ```

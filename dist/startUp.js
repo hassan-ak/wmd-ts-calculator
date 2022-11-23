@@ -1,6 +1,17 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 // Functions to run at starup
 import chalkAnimation from 'chalk-animation';
 import { operatorsTable } from './operatorsTable.js';
+import inquirer from 'inquirer';
+import { createSpinner } from 'nanospinner';
 /**************************************************************************/
 // Display Welcome message
 // used chalk animations
@@ -21,4 +32,44 @@ function displayTable(value) {
     }, 1600);
 }
 /**************************************************************************/
-export { welcomeMessage, displayTable };
+// Ask user for continuing or quiting app
+// based on user input start or quit app
+// before starting calculator display a spinner
+function askUserForStart() {
+    let Commands;
+    (function (Commands) {
+        Commands["Use"] = "Use Calculator";
+        Commands["Quit"] = "Quit App";
+    })(Commands || (Commands = {}));
+    // function to take input from user
+    function promptUser() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield inquirer
+                .prompt({
+                type: 'list',
+                name: 'command',
+                message: 'Do you want to use the Calculator ? ',
+                choices: Object.values(Commands),
+            })
+                .then((answers) => {
+                if (answers['command'] === Commands.Use) {
+                    const spinner = createSpinner('starting up').start();
+                    setTimeout(() => {
+                        spinner.stop();
+                        console.log('Calculator');
+                        // calculator();
+                    }, 1000);
+                }
+                else {
+                    console.log('App Closed');
+                    // quitApp();
+                }
+            });
+        });
+    }
+    setTimeout(() => {
+        promptUser();
+    }, 2000);
+}
+/**************************************************************************/
+export { welcomeMessage, displayTable, askUserForStart };

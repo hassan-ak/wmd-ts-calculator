@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { welcomeMessage, displayTable } from './startUp.js';
+import { welcomeMessage, displayTable, askUserForStart } from './startUp.js';
+import chalk from 'chalk';
 // Base function to start the program
 // It returns a promise and will always resolve
 function runApp() {
@@ -14,4 +15,13 @@ appPromise
 })
     .then((value) => {
     displayTable(value);
+})
+    .then(() => {
+    askUserForStart();
+})
+    .catch(() => {
+    console.log(chalk.magenta('\nThere is some Internal Error.\nPlease Try Again Later'));
+    setTimeout(() => {
+        console.clear();
+    }, 1000);
 });
