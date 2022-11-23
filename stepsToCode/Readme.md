@@ -710,7 +710,7 @@
   }
   ```
 
-### 14. Publish as NPX package
+### 15. Publish as NPX package
 
 - login to npm
 
