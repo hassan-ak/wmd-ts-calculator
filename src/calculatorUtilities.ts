@@ -17,6 +17,7 @@ import {
   squareRoot,
   subtraction,
 } from './operations.js';
+import prettier from 'prettier';
 
 /**************************************************************************/
 // Fnction should ask for a number from user
@@ -163,4 +164,41 @@ let performOperationPromise = (operation: string): Promise<number | string> => {
 };
 
 /**************************************************************************/
-export { askforNumberPromise, askforOperationPromise, performOperationPromise };
+// Fetch result along with statement from data
+// to be displayed after each operation
+// use prettier on the statments
+// only use prettier when there is atleast one operation
+let showResultPromise: () => Promise<string> = (): Promise<string> => {
+  return new Promise((resolve) => {
+    if (data.getStatements().length > 1) {
+      resolve(
+        `\nResult (1st number for next operation) \n\n\t` +
+          chalk.cyan(
+            prettier
+              .format(data.getStatements()[0], {
+                semi: false,
+                parser: 'babel',
+              })
+              .replace(/(\r\n|\n|\r)/gm, '')
+              .replace(';', '')
+          ) +
+          ` = ${chalk.blue(data.getResults()[0])}
+            `
+      );
+    } else {
+      resolve(
+        `\nResult (1st number for next operation) \n\n\t` +
+          chalk.cyan(data.getStatements()[0]) +
+          ` = ${chalk.blue(data.getResults()[0])}
+          `
+      );
+    }
+  });
+};
+/**************************************************************************/
+export {
+  askforNumberPromise,
+  askforOperationPromise,
+  performOperationPromise,
+  showResultPromise,
+};

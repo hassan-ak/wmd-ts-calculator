@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 // Calculator
 import chalk from 'chalk';
 import { data } from './appData.js';
-import { askforNumberPromise, askforOperationPromise, performOperationPromise, } from './calculatorUtilities.js';
+import { askforNumberPromise, askforOperationPromise, performOperationPromise, showResultPromise, } from './calculatorUtilities.js';
 import { quitApp } from './startUp.js';
 /**************************************************************************/
 // Actual calculator function
@@ -42,6 +42,10 @@ function calculator() {
                 iter = false;
                 quitApp();
                 break;
+            }
+            let result = yield showResultPromise();
+            if (data.getResults().length !== 0) {
+                console.log(result);
             }
         }
     });

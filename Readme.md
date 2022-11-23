@@ -511,7 +511,7 @@ A CLI based calculator using typescript and published as an executable npm packa
   };
   ```
 
-### 11. Ask user for an operation to perform and next number
+### 12. Ask user for an operation to perform and next number
 
 - update `calculatorUtilities.ts` to create a function which ask a user to select from given list of operations to perform
 
@@ -565,7 +565,7 @@ A CLI based calculator using typescript and published as an executable npm packa
   }
   ```
 
-### 12. Perform operation based on user Input
+### 13. Perform operation based on user Input
 
 - update `calculatorUtilities.ts` to create a function which performs the operation asked by user
 
@@ -665,5 +665,51 @@ A CLI based calculator using typescript and published as an executable npm packa
     iter = false;
     quitApp();
     break;
+  }
+  ```
+
+### 14. Display results
+
+- update `calculatorUtilities.ts` to create a function which displays results in the form of a statement
+
+  ```ts
+  import prettier from 'prettier';
+  let showResultPromise: () => Promise<string> = (): Promise<string> => {
+    return new Promise((resolve) => {
+      if (data.getStatements().length > 1) {
+        resolve(
+          `\nResult (1st number for next operation) \n\n\t` +
+            chalk.cyan(
+              prettier
+                .format(data.getStatements()[0], {
+                  semi: false,
+                  parser: 'babel',
+                })
+                .replace(/(\r\n|\n|\r)/gm, '')
+                .replace(';', '')
+            ) +
+            ` = ${chalk.blue(data.getResults()[0])}
+            `
+        );
+      } else {
+        resolve(
+          `\nResult (1st number for next operation) \n\n\t` +
+            chalk.cyan(data.getStatements()[0]) +
+            ` = ${chalk.blue(data.getResults()[0])}
+          `
+        );
+      }
+    });
+  };
+  export { showResultPromise };
+  ```
+
+- update `calculator.ts` to call the display function
+
+  ```ts
+  import { showResultPromise } from './calculatorUtilities.js';
+  let result: string = await showResultPromise();
+  if (data.getResults().length !== 0) {
+    console.log(result);
   }
   ```

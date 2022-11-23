@@ -5,6 +5,7 @@ import {
   askforNumberPromise,
   askforOperationPromise,
   performOperationPromise,
+  showResultPromise,
 } from './calculatorUtilities.js';
 import { quitApp } from './startUp.js';
 
@@ -41,6 +42,10 @@ async function calculator(): Promise<void> {
       iter = false;
       quitApp();
       break;
+    }
+    let result: string = await showResultPromise();
+    if (data.getResults().length !== 0) {
+      console.log(result);
     }
   }
 }
