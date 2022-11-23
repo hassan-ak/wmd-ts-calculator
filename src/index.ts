@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import chalkAnimation from 'chalk-animation';
-import { welcomeMessage } from './startUp.js';
+import { welcomeMessage, displayTable } from './startUp.js';
 
 // Base function to start the program
 // It returns a promise and will always resolve
@@ -11,6 +11,10 @@ function runApp(): Promise<boolean> {
   });
 }
 let appPromise: Promise<boolean> = runApp();
-appPromise.then((): chalkAnimation.Animation => {
-  return welcomeMessage();
-});
+appPromise
+  .then((): chalkAnimation.Animation => {
+    return welcomeMessage();
+  })
+  .then((value: chalkAnimation.Animation): void => {
+    displayTable(value);
+  });

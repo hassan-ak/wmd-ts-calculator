@@ -4,7 +4,7 @@ A CLI based calculator using typescript and published as an executable npm packa
 
 ## Steps to code CLI calculator
 
-### 1. Project Initiation
+### 1. Project initiation
 
 - Create and navigate to project directory using following commands
 
@@ -81,7 +81,7 @@ A CLI based calculator using typescript and published as an executable npm packa
   package-lock.json
   ```
 
-### 3. Create Hello World
+### 3. Create hello world
 
 - To check if everything is setup properly first create a hello world. All the typescript files should be created `./src` directory. Create a `index.ts` file with the following content
 
@@ -106,7 +106,7 @@ A CLI based calculator using typescript and published as an executable npm packa
 
 - If everything is right we will have a console output.
 
-### 4. Create Welcome Message
+### 4. Create welcome message
 
 - Create `startUp.ts` will the following content to display welcome message to the user
 
@@ -137,5 +137,58 @@ A CLI based calculator using typescript and published as an executable npm packa
   let appPromise: Promise<boolean> = runApp();
   appPromise.then((): chalkAnimation.Animation => {
     return welcomeMessage();
+  });
+  ```
+
+### 5. Display table of operations
+
+- Create `operatorsTable.ts` with the following content to define a table of operations to be displayed after welcome message
+
+  ```ts
+  import Table from 'cli-table';
+  var operatorsTable = new Table({
+    head: ['Sr. No.', 'Operator', 'Description', 'Example'],
+  });
+  let operations: string[][] = [
+    ['01', '+', 'Add two numbers', 'x + y'],
+    ['02', '-', 'Subtract a number from other', 'x - y'],
+    ['03', '*', 'Multiply two numbers', 'x * y'],
+    ['04', '/', 'Divide a number by other', 'x / y'],
+    ['05', '%', 'Percentage of a number', 'x % of y'],
+    ['06', '+/-', 'Alternate sign of a number', '+/- (x)'],
+    ['07', '**', 'Square of a number', 'x ** 2'],
+    ['08', '^', 'Find power of a number', 'x ^ y'],
+    ['09', 'sqrt', 'Square Root of a number', 'sqrt(x)'],
+    ['10', '1/x', 'Reciprocal of a number', '1/x'],
+  ];
+  operatorsTable.push(...operations);
+  export { operatorsTable };
+  ```
+
+- Update `startUp.ts` to define a function which displays the table and other details
+
+  ```ts
+  import { operatorsTable } from './operatorsTable.js';
+  function displayTable(value: chalkAnimation.Animation): void {
+    setTimeout((): void => {
+      value.stop();
+      console.log(
+        `This CLI based calculator can help you perform any of the following operations.`
+      );
+      console.log(operatorsTable.toString());
+      console.log(
+        `Note : \n\t- Result of each operation is input for the next one.\n\t- Clear and start over for new operation\n\t- Undo last operation if something goes wrong\n`
+      );
+    }, 1600);
+  }
+  export { displayTable };
+  ```
+
+- Update `index.ts` to use displayTable function
+
+  ```ts
+  import { displayTable } from './startUp.js';
+  .then((value: chalkAnimation.Animation): void => {
+    displayTable(value);
   });
   ```

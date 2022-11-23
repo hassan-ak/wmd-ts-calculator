@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { welcomeMessage } from './startUp.js';
+import { welcomeMessage, displayTable } from './startUp.js';
 // Base function to start the program
 // It returns a promise and will always resolve
 function runApp() {
@@ -8,6 +8,10 @@ function runApp() {
     });
 }
 let appPromise = runApp();
-appPromise.then(() => {
+appPromise
+    .then(() => {
     return welcomeMessage();
+})
+    .then((value) => {
+    displayTable(value);
 });
