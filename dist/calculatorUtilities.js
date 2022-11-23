@@ -53,4 +53,42 @@ let askforNumberPromise = (firstEntry) => {
     });
 };
 /**************************************************************************/
-export { askforNumberPromise };
+// Ask user for operation to perform
+// inquirer displays a list to chose from
+// return selected operations
+let askforOperationPromise = () => {
+    return new Promise((resolve) => {
+        function askForOperation() {
+            return __awaiter(this, void 0, void 0, function* () {
+                // List of commands
+                let Commands;
+                (function (Commands) {
+                    Commands["addition"] = "( + )     addition";
+                    Commands["subtraction"] = "( - )     subtraction";
+                    Commands["multiplication"] = "( * )     multiplication";
+                    Commands["divison"] = "( / )     division";
+                    Commands["percentage"] = "( % )     percentage";
+                    Commands["negation"] = "( +/- )   negation";
+                    Commands["square"] = "( ** )    square";
+                    Commands["power"] = "( ^ )     power";
+                    Commands["squareRoot"] = "( sqrt )  square root";
+                    Commands["reciprocal"] = "( 1/x )   reciprocal";
+                    Commands["revert"] = "( < )     undo last operation";
+                    Commands["quit"] = "( q )     quit calculator";
+                    Commands["clear"] = "( c )     clear and startOver";
+                })(Commands || (Commands = {}));
+                // ask user for input
+                let userInput = yield inquirer.prompt({
+                    type: 'list',
+                    name: 'command',
+                    message: 'Select an operation to perform : ',
+                    choices: Object.values(Commands),
+                });
+                return userInput.command;
+            });
+        }
+        resolve(askForOperation());
+    });
+};
+/**************************************************************************/
+export { askforNumberPromise, askforOperationPromise };

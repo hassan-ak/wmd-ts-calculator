@@ -1,7 +1,10 @@
 // Calculator
 import chalk from 'chalk';
 import { data } from './appData.js';
-import { askforNumberPromise } from './calculatorUtilities.js';
+import {
+  askforNumberPromise,
+  askforOperationPromise,
+} from './calculatorUtilities.js';
 
 /**************************************************************************/
 // Actual calculator function
@@ -17,6 +20,17 @@ async function calculator(): Promise<void> {
       console.clear();
       console.log(chalk.greenBright('CLI Calculator\n'));
       await askforNumberPromise(true);
+    }
+    let operation: string = await askforOperationPromise();
+    if (
+      operation === '( + )     addition' ||
+      operation === '( - )     subtraction' ||
+      operation === '( * )     multiplication' ||
+      operation === '( / )     division' ||
+      operation === '( % )     percentage' ||
+      operation === '( ^ )     power'
+    ) {
+      await askforNumberPromise(false);
     }
   }
 }

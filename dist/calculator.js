@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 // Calculator
 import chalk from 'chalk';
 import { data } from './appData.js';
-import { askforNumberPromise } from './calculatorUtilities.js';
+import { askforNumberPromise, askforOperationPromise, } from './calculatorUtilities.js';
 /**************************************************************************/
 // Actual calculator function
 // iterates until stopped
@@ -26,6 +26,15 @@ function calculator() {
                 console.clear();
                 console.log(chalk.greenBright('CLI Calculator\n'));
                 yield askforNumberPromise(true);
+            }
+            let operation = yield askforOperationPromise();
+            if (operation === '( + )     addition' ||
+                operation === '( - )     subtraction' ||
+                operation === '( * )     multiplication' ||
+                operation === '( / )     division' ||
+                operation === '( % )     percentage' ||
+                operation === '( ^ )     power') {
+                yield askforNumberPromise(false);
             }
         }
     });

@@ -510,3 +510,57 @@ A CLI based calculator using typescript and published as an executable npm packa
     revert,
   };
   ```
+
+### 11. Ask user for an operation to perform and next number
+
+- update `calculatorUtilities.ts` to create a function which ask a user to select from given list of operations to perform
+
+  ```ts
+  let askforOperationPromise: () => Promise<string> = (): Promise<string> => {
+    return new Promise((resolve) => {
+      async function askForOperation(): Promise<string> {
+        enum Commands {
+          addition = '( + )     addition',
+          subtraction = '( - )     subtraction',
+          multiplication = '( * )     multiplication',
+          divison = '( / )     division',
+          percentage = '( % )     percentage',
+          negation = '( +/- )   negation',
+          square = '( ** )    square',
+          power = '( ^ )     power',
+          squareRoot = '( sqrt )  square root',
+          reciprocal = '( 1/x )   reciprocal',
+          revert = '( < )     undo last operation',
+          quit = '( q )     quit calculator',
+          clear = '( c )     clear and startOver',
+        }
+        let userInput = await inquirer.prompt({
+          type: 'list',
+          name: 'command',
+          message: 'Select an operation to perform : ',
+          choices: Object.values(Commands),
+        });
+        return userInput.command;
+      }
+      resolve(askForOperation());
+    });
+  };
+  export { askforOperationPromise };
+  ```
+
+- update `calculator.ts` to use above function and ask for second number based on selected operation
+
+  ```ts
+  import { askforOperationPromise } from './calculatorUtilities.js';
+  let operation: string = await askforOperationPromise();
+  if (
+    operation === '( + )     addition' ||
+    operation === '( - )     subtraction' ||
+    operation === '( * )     multiplication' ||
+    operation === '( / )     division' ||
+    operation === '( % )     percentage' ||
+    operation === '( ^ )     power'
+  ) {
+    await askforNumberPromise(false);
+  }
+  ```

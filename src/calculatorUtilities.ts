@@ -44,4 +44,40 @@ let askforNumberPromise: (firstEntry: boolean) => Promise<void | boolean> = (
 };
 
 /**************************************************************************/
-export { askforNumberPromise };
+// Ask user for operation to perform
+// inquirer displays a list to chose from
+// return selected operations
+let askforOperationPromise: () => Promise<string> = (): Promise<string> => {
+  return new Promise((resolve) => {
+    async function askForOperation(): Promise<string> {
+      // List of commands
+      enum Commands {
+        addition = '( + )     addition',
+        subtraction = '( - )     subtraction',
+        multiplication = '( * )     multiplication',
+        divison = '( / )     division',
+        percentage = '( % )     percentage',
+        negation = '( +/- )   negation',
+        square = '( ** )    square',
+        power = '( ^ )     power',
+        squareRoot = '( sqrt )  square root',
+        reciprocal = '( 1/x )   reciprocal',
+        revert = '( < )     undo last operation',
+        quit = '( q )     quit calculator',
+        clear = '( c )     clear and startOver',
+      }
+      // ask user for input
+      let userInput = await inquirer.prompt({
+        type: 'list',
+        name: 'command',
+        message: 'Select an operation to perform : ',
+        choices: Object.values(Commands),
+      });
+      return userInput.command;
+    }
+    resolve(askForOperation());
+  });
+};
+
+/**************************************************************************/
+export { askforNumberPromise, askforOperationPromise };
