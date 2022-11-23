@@ -265,3 +265,14 @@ A CLI based calculator using typescript and published as an executable npm packa
   }
   export { quitApp };
   ```
+
+### 8. Create calculator function
+
+- create `calculator.ts` to define a function which is actullay the calculator we are planning on using. Intially it is just a console message. Also update function call in `startUp.ts`
+
+```ts
+function calculator() {
+  console.log('Welcome to calculator');
+}
+export { calculator };
+```
