@@ -333,3 +333,61 @@ A CLI based calculator using typescript and published as an executable npm packa
   let data = new OperationsData();
   export { data };
   ```
+
+### 10. Ask user to input numbers
+
+- Create `calculatorUtilities.ts` to define a function which ask user for a number and store it to the data class
+
+```ts
+import inquirer from 'inquirer';
+import chalk from 'chalk';
+import { data } from './appData.js';
+let askforNumberPromise: (firstEntry: boolean) => Promise<void | boolean> = (
+  firstEntry: boolean
+): Promise<void | boolean> => {
+  return new Promise((resolve) => {
+    async function askForNumber(firstEntry: boolean): Promise<void | boolean> {
+      let userInput = await inquirer.prompt([
+        {
+          name: 'aNum',
+          type: 'number',
+          message: `Enter ${firstEntry ? '1st' : '2nd'} Number : `,
+        },
+      ]);
+      if (isNaN(userInput.aNum)) {
+        console.log(chalk.red('Entered value is not a number '));
+        askForNumber(firstEntry);
+      } else {
+        if (firstEntry) {
+          data.addResults(userInput.aNum);
+          data.addStatements(userInput.aNum);
+        } else {
+          data.setTemp(userInput.aNum);
+        }
+        resolve(true);
+      }
+    }
+    askForNumber(firstEntry);
+  });
+};
+export { askforNumberPromise };
+```
+
+- update `calculator.ts` to include above function in the app
+
+```ts
+import chalk from 'chalk';
+import { data } from './appData.js';
+import { askforNumberPromise } from './calculatorUtilities.js';
+async function calculator(): Promise<void> {
+  let iter: boolean = true;
+  while (iter) {
+    if (data.getResults().length === 0) {
+      console.clear();
+      console.log(chalk.greenBright('CLI Calculator\n'));
+      await askforNumberPromise(true);
+    }
+  }
+}
+export { calculator };
+```
