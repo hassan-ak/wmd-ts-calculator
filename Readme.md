@@ -270,9 +270,66 @@ A CLI based calculator using typescript and published as an executable npm packa
 
 - create `calculator.ts` to define a function which is actullay the calculator we are planning on using. Intially it is just a console message. Also update function call in `startUp.ts`
 
-```ts
-function calculator() {
-  console.log('Welcome to calculator');
-}
-export { calculator };
-```
+  ```ts
+  function calculator() {
+    console.log('Welcome to calculator');
+  }
+  export { calculator };
+  ```
+
+### 9. Create a class to store runtime data
+
+- create `appData.ts` ro define a class which stores data during application runntime
+
+  ```ts
+  interface Data {
+    statement: string[];
+    getStatements(): string[];
+    addStatements(v: string): void;
+    removeStatements(): void;
+    results: number[];
+    getResults(): number[];
+    addResults(v: number): void;
+    removeResults(): void;
+    temp: number;
+    setTemp(v: number): void;
+    getTemp(): number;
+    reset(): void;
+  }
+  class OperationsData implements Data {
+    statement: string[] = [];
+    public getStatements(): string[] {
+      return this.statement;
+    }
+    public addStatements(v: string) {
+      this.statement.unshift(v);
+    }
+    public removeStatements() {
+      this.statement.shift();
+    }
+    results: number[] = [];
+    public getResults(): number[] {
+      return this.results;
+    }
+    public addResults(v: number) {
+      this.results.unshift(v);
+    }
+    public removeResults() {
+      this.results.shift();
+    }
+    temp: number = 0;
+    public setTemp(v: number): void {
+      this.temp = v;
+    }
+    public getTemp(): number {
+      return this.temp;
+    }
+    public reset(): void {
+      this.statement = [];
+      this.results = [];
+      this.temp = 0;
+    }
+  }
+  let data = new OperationsData();
+  export { data };
+  ```
