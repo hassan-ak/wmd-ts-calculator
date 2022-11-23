@@ -1,3 +1,4 @@
+// Calculator sub Functions
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,12 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// Calculator sub Functions
-import inquirer from 'inquirer';
 import chalk from 'chalk';
-import { data } from './appData.js';
-import { addition, clear, divison, multiplication, negate, percent, power, quitCalculator, reciprocal, revert, square, squareRoot, subtraction, } from './operations.js';
+import inquirer from 'inquirer';
 import prettier from 'prettier';
+import { data } from './appData.js';
+import { clear, power, negate, revert, square, divison, percent, addition, reciprocal, squareRoot, subtraction, quitCalculator, multiplication, } from './operations.js';
 /**************************************************************************/
 // Fnction should ask for a number from user
 // If it is the first operation ask for 1st number
@@ -187,4 +187,4 @@ let showResultPromise = () => {
     });
 };
 /**************************************************************************/
-export { askforNumberPromise, askforOperationPromise, performOperationPromise, showResultPromise, };
+export { showResultPromise, askforNumberPromise, askforOperationPromise, performOperationPromise, };

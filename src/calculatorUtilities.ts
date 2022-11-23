@@ -1,23 +1,24 @@
 // Calculator sub Functions
-import inquirer from 'inquirer';
+
 import chalk from 'chalk';
+import inquirer from 'inquirer';
+import prettier from 'prettier';
 import { data } from './appData.js';
 import {
-  addition,
   clear,
-  divison,
-  multiplication,
-  negate,
-  percent,
   power,
-  quitCalculator,
-  reciprocal,
+  negate,
   revert,
   square,
+  divison,
+  percent,
+  addition,
+  reciprocal,
   squareRoot,
   subtraction,
+  quitCalculator,
+  multiplication,
 } from './operations.js';
-import prettier from 'prettier';
 
 /**************************************************************************/
 // Fnction should ask for a number from user
@@ -195,10 +196,11 @@ let showResultPromise: () => Promise<string> = (): Promise<string> => {
     }
   });
 };
+
 /**************************************************************************/
 export {
+  showResultPromise,
   askforNumberPromise,
   askforOperationPromise,
   performOperationPromise,
-  showResultPromise,
 };

@@ -120,4 +120,4 @@ function quitCalculator() {
     return 'q';
 }
 /**************************************************************************/
-export { addition, clear, quitCalculator, subtraction, multiplication, divison, power, percent, square, squareRoot, reciprocal, negate, revert, };
+export { clear, power, square, negate, revert, percent, divison, addition, reciprocal, squareRoot, subtraction, multiplication, quitCalculator, };

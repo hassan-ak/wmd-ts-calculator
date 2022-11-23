@@ -1,12 +1,13 @@
 // Calculator
+
 import chalk from 'chalk';
-import { data } from './appData.js';
 import {
+  showResultPromise,
   askforNumberPromise,
   askforOperationPromise,
   performOperationPromise,
-  showResultPromise,
 } from './calculatorUtilities.js';
+import { data } from './appData.js';
 import { quitApp } from './startUp.js';
 
 /**************************************************************************/

@@ -1,5 +1,6 @@
 import Table from 'cli-table';
 
+/**************************************************************************/
 // Create a table instance to display operations
 // Available in the calculator
 var operatorsTable = new Table({
@@ -19,4 +20,5 @@ let operations: string[][] = [
 ];
 operatorsTable.push(...operations);
 
+/**************************************************************************/
 export { operatorsTable };

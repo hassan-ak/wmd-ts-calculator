@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
+import chalk from 'chalk';
 import chalkAnimation from 'chalk-animation';
 import { welcomeMessage, displayTable, askUserForStart } from './startUp.js';
-import chalk from 'chalk';
 
 // Base function to start the program
 // It returns a promise and will always resolve

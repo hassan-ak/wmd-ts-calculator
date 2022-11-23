@@ -1,10 +1,11 @@
 // Functions to run at starup
-import chalkAnimation from 'chalk-animation';
-import { operatorsTable } from './operatorsTable.js';
+
+import chalk from 'chalk';
 import inquirer from 'inquirer';
 import { createSpinner } from 'nanospinner';
-import chalk from 'chalk';
+import chalkAnimation from 'chalk-animation';
 import { calculator } from './calculator.js';
+import { operatorsTable } from './operatorsTable.js';
 
 /**************************************************************************/
 // Display Welcome message

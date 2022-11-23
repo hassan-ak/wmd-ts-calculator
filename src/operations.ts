@@ -1,4 +1,5 @@
 // Calculator Operations Functions
+
 import { data } from './appData.js';
 
 /**************************************************************************/
@@ -126,19 +127,18 @@ function quitCalculator(): string {
 }
 
 /**************************************************************************/
-
 export {
-  addition,
   clear,
-  quitCalculator,
-  subtraction,
-  multiplication,
-  divison,
   power,
-  percent,
   square,
-  squareRoot,
-  reciprocal,
   negate,
   revert,
+  percent,
+  divison,
+  addition,
+  reciprocal,
+  squareRoot,
+  subtraction,
+  multiplication,
+  quitCalculator,
 };

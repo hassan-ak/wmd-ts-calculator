@@ -1,3 +1,4 @@
+// Calculator
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,10 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// Calculator
 import chalk from 'chalk';
+import { showResultPromise, askforNumberPromise, askforOperationPromise, performOperationPromise, } from './calculatorUtilities.js';
 import { data } from './appData.js';
-import { askforNumberPromise, askforOperationPromise, performOperationPromise, showResultPromise, } from './calculatorUtilities.js';
 import { quitApp } from './startUp.js';
 /**************************************************************************/
 // Actual calculator function

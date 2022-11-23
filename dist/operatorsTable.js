@@ -1,4 +1,5 @@
 import Table from 'cli-table';
+/**************************************************************************/
 // Create a table instance to display operations
 // Available in the calculator
 var operatorsTable = new Table({
@@ -17,4 +18,5 @@ let operations = [
     ['10', '1/x', 'Reciprocal of a number', '1/x'],
 ];
 operatorsTable.push(...operations);
+/**************************************************************************/
 export { operatorsTable };
