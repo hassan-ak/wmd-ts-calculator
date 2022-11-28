@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/hassan-ak/wmd-ts-calculator.git"
   },
-  "keywords": [],
+  "keywords": ["calculator","typescript","npx"],
   "bin": "./dist/index.js",
   "author": "Hassan Ali Khan",
   "license": "ISC",
