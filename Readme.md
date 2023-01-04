@@ -49,6 +49,10 @@ This CLI based calculator can help you perform any of the following operations.
 - Clear and start over for new operation
 - Undo last operation if something goes wrong
 
+## Demo
+
+[<img src="calculator.PNG" width="75%">](https://www.youtube.com/watch?v=NiknNI_0J48 'Keynote Next.js 13')
+
 ## Steps to code CLI calculator
 
 All the details to code this app is given [here](https://github.com/hassan-ak/wmd-ts-calculator/blob/main/stepsToCode/Readme.md).
