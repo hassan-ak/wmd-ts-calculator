@@ -51,7 +51,7 @@ This CLI based calculator can help you perform any of the following operations.
 
 ## Demo
 
-[<img src="calculator.PNG" width="75%">](https://www.youtube.com/watch?v=NiknNI_0J48 'Keynote Next.js 13')
+[<img src="calculator.PNG" width="75%">](https://youtu.be/zSN2G2QyPlE 'CLI Calculator')
 
 ## Steps to code CLI calculator
 
